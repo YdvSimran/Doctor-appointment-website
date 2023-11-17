@@ -2,7 +2,7 @@ import React from 'react'
 import '../styles/Layout.css';
 import { adminMenu, userMenu} from '../Data/data';
 import {Link ,useLocation,useNavigate} from 'react-router-dom';
-import {message} from "antd";
+import {message , Badge} from "antd";
 import { useSelector } from 'react-redux';
 const Layout = ({children}) => {
 const {user} =useSelector(state => state.user)
@@ -52,8 +52,12 @@ const sidebarMenu =user?.isAdmin ? adminMenu :userMenu;
          </div>
          <div className='content'>
          <div className='header'>
-             <div className='header-content'>
-                              <i class='fa-solid fa-bell'></i>
+             <div className='header-content' style={{cursor:'pointer'}}>
+             <Badge count={user&& user.notification.length} 
+             onClick={()=>{navigate('/notification')}}>
+             <i class='fa-solid fa-bell'></i>
+    </Badge>
+                             
                               <Link to='/profile'>{user?.name}</Link>
              </div>  
          </div>
