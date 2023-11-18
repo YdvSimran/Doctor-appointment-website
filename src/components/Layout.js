@@ -1,9 +1,11 @@
 import React from 'react'
 import '../styles/Layout.css';
-import { adminMenu, userMenu} from '../Data/data';
+import { adminMenu, userMenu} from './../Data/data';
 import {Link ,useLocation,useNavigate} from 'react-router-dom';
 import {message , Badge} from "antd";
 import { useSelector } from 'react-redux';
+
+
 const Layout = ({children}) => {
 const {user} =useSelector(state => state.user)
 const location =useLocation();
@@ -17,10 +19,30 @@ const handleLogout=()=>{
 }
 
 
+//////////////////DOCTOR MENU//////////////////
+ const doctorMenu = [
+  {
+                 name:'Home',
+                 path:'/',
+                 icon:"fa-solid fa-house",
+  },
+  {
+      name:'Appointments',
+      path:'/appointments',
+      icon:"fa-solid fa-list"          
+  },
+  {
+                 name:'Profile',
+                 path:`/doctor/profile/${user?._id}`,
+                 icon:'fa-solid fa-user'
+  },
+];
+
+
 
 
 //rendering menu list
-const sidebarMenu =user?.isAdmin ? adminMenu :userMenu;
+const sidebarMenu = user?.isAdmin ? adminMenu : user?.isDoctor ? doctorMenu :userMenu;
   
   return (
     
